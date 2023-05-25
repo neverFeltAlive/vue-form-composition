@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "eslint:recommended",
+    "prettier"
+  ],
+  "rules": {
+    "semi": "warn",
+    "no-console": "error",
+    "no-debugger": "error",
+    "camelcase": "warn",
+    "no-var": "error"
+  }
+}
