@@ -14,19 +14,23 @@ export default {
   props: {
     isVisible: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  methods: {
-    closePopup(){
-      this.$emit('update:isVisible', false);
-    }
-  }
+  setup(props, { emit }) {
+    const closePopup = () => {
+      emit('update:isVisible', false);
+    };
+
+    return {
+      closePopup,
+    };
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@utils/vars.scss";
+@import '@utils/vars.scss';
 
 .popup__background {
   position: fixed;

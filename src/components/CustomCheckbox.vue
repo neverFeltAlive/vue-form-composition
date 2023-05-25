@@ -1,39 +1,54 @@
 <template>
   <div class="custom-checkbox">
     <div class="custom-checkbox__inner">
-      <input ref="input" type="checkbox" class="custom-checkbox__input" :id="name" :name="name" :checked="modelValue" @change="$emit('update:modelValue', $event.target.checked)" :required="required">
+      <input
+        ref="input"
+        type="checkbox"
+        class="custom-checkbox__input"
+        :id="name"
+        :name="name"
+        :checked="modelValue"
+        @change="$emit('update:modelValue', $event.target.checked)"
+        :required="required"
+      />
       <label class="custom-checkbox__checkbox" :for="name">{{ label }}</label>
     </div>
-    <div class="custom-checkbox__error" :class="{checked: modelValue}" v-if="required" v-fade="!modelValue">This checkbox is required</div>
+    <div
+      class="custom-checkbox__error"
+      :class="{ checked: modelValue }"
+      v-if="required"
+      v-fade="!modelValue"
+    >
+      This checkbox is required
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  emits: ['update:modelValue'],
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    modelValue: {
-      type: Boolean,
-      required: true,
-    },
-    label: {
-      type: String,
-      required: true
-    },
-    required: {
-      type: Boolean,
-      default: false
-    }
+<script setup>
+defineProps({
+  name: {
+    type: String,
+    required: true,
   },
-};
+  modelValue: {
+    type: Boolean,
+    required: true,
+  },
+  label: {
+    type: String,
+    required: true,
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+defineEmits(['update:modelValue']);
 </script>
 
 <style lang="scss" scoped>
-@import "@utils/vars.scss";
+@import '@utils/vars.scss';
 
 .custom-checkbox {
   margin-bottom: 20px;
