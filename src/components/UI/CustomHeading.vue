@@ -1,20 +1,25 @@
 <script>
-import {h} from "vue";
+import { h, toRefs } from 'vue';
 
 export default {
   props: {
     level: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup() {
+  setup(props, { slots }) {
+    const { level } = toRefs(props);
     return () => {
-      return h('h' + this.level, {
-        class: 'custom-h'
-      }, this.$slots.default());
+      return h(
+        'h' + level.value,
+        {
+          class: 'custom-h',
+        },
+        slots.default()
+      );
     };
-  }
+  },
 };
 </script>
 

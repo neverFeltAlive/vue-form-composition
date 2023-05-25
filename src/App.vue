@@ -1,5 +1,5 @@
 <script>
-import SimpleForm from '@components/SimpleForm.vue';
+import SimpleForm from '@components/Form/SimpleForm.vue';
 
 export default {
   components: {

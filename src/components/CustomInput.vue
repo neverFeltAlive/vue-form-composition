@@ -2,70 +2,68 @@
   <div class="custom-input">
     <label :for="name">{{ label }}:</label>
     <input
-        class="custom-input__input"
-        :id="name"
-        :class="{ error: !!errorMessage }"
-        :name="name"
-        :type="type"
-        :value="modelValue"
-        :placeholder="placeholder"
-        @input="$emit('update:modelValue', $event.target.value)"
-        @blur="onBlur"
-    >
-    <div class="custom-input__error" v-fade="!isValid && errorMessage">{{ errorMessage }}</div>
+      class="custom-input__input"
+      :id="name"
+      :class="{ error: !!errorMessage }"
+      :name="name"
+      :type="type"
+      :value="modelValue"
+      :placeholder="placeholder"
+      @input="$emit('update:modelValue', $event.target.value)"
+      @blur="onBlur"
+    />
+    <div class="custom-input__error" v-fade="!isValid && errorMessage">
+      {{ errorMessage }}
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-      required: true
-    },
-    isValid: {
-      type: Boolean,
-      required: true,
-    },
-    validate: {
-      required: true
-    },
-    placeholder: {
-      default: '...',
-    },
-  },
-  emits: ['update:modelValue', 'update:isValid'],
-  data(){
-    return {
-      errorMessage: null
-    };
-  },
-  methods: {
-    onBlur(event){
-      const value = event.target.value;
-      const error = this.validate(value);
+<script setup>
+import { ref } from 'vue';
 
-      this.errorMessage = value.length === 0 ? '' : error;
-      this.$emit('update:isValid', !error);
-    }
-  }
+const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  label: {
+    type: String,
+    required: true,
+  },
+  isValid: {
+    type: Boolean,
+    required: true,
+  },
+  validate: {
+    required: true,
+  },
+  placeholder: {
+    default: '...',
+  },
+});
+const emit = defineEmits(['update:modelValue', 'update:isValid']);
+
+const errorMessage = ref(null);
+
+const onBlur = (event) => {
+  const value = event.target.value;
+  const error = props.validate(value);
+
+  errorMessage.value = value.length === 0 ? '' : error;
+  emit('update:isValid', !error);
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@utils/vars.scss";
+@import '@utils/vars';
 
 .custom-input {
   display: flex;
