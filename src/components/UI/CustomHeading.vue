@@ -8,10 +8,12 @@ export default {
       required: true
     }
   },
-  render: function() {
-    return h('h' + this.level, {
-      class: 'custom-h'
-    }, this.$slots.default());
+  setup() {
+    return () => {
+      return h('h' + this.level, {
+        class: 'custom-h'
+      }, this.$slots.default());
+    };
   }
 };
 </script>
